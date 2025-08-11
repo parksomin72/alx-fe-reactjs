@@ -1,8 +1,14 @@
-export default function MainContent() {
+import { useState } from 'react';
+
+export default function Counter() {
+  const [count, setCount] = useState(0);
+
   return (
-    <main style={{ padding: '20px', backgroundColor: '#eef', minHeight: '200px' }}>
-      <h2 style={{ color: 'darkslategray' }}>Main Content</h2>
-      <p>I love to visit New York, Paris, and Tokyo.</p>
-    </main>
+    <div style={{ textAlign: 'center', marginTop: '20px' }}>
+      <p style={{ fontSize: '20px' }}>Current Count: {count}</p>
+      <button onClick={() => setCount(count + 1)} style={{ marginRight: '10px' }}>Increment</button>
+      <button onClick={() => setCount(count - 1)} style={{ marginRight: '10px' }}>Decrement</button>
+      <button onClick={() => setCount(0)}>Reset</button>
+    </div>
   );
 }
