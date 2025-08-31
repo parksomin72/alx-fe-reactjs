@@ -4,20 +4,30 @@ export default function RegistrationForm() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!username || !email || !password) {
-      setError("All fields are required.");
+    if (!username) {
+      setErrors("Username is required.");
       return;
     }
-    setError("");
+
+    if (!email) {
+      setErrors("Email is required.");
+      return;
+    }
+
+    if (!password) {
+      setErrors("Password is required.");
+      return;
+    }
+
+    setErrors(""); // clear errors
 
     // Mock API simulation
     console.log("Submitting:", { username, email, password });
-
     alert("User registered successfully!");
   };
 
@@ -30,7 +40,7 @@ export default function RegistrationForm() {
         <input
           type="text"
           name="username"
-          value={username}     {/* ✅ matches checker requirement */}
+          value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
       </div>
@@ -40,7 +50,7 @@ export default function RegistrationForm() {
         <input
           type="email"
           name="email"
-          value={email}        {/* ✅ matches checker requirement */}
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>
@@ -50,12 +60,12 @@ export default function RegistrationForm() {
         <input
           type="password"
           name="password"
-          value={password}     {/* ✅ matches checker requirement */}
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {errors && <p style={{ color: "red" }}>{errors}</p>}
 
       <button type="submit">Register</button>
     </form>
