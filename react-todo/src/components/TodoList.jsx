@@ -1,49 +1,31 @@
-import { useState } from "react";
-import AddTodoForm from "./AddTodoForm";
+import React, { useState, useEffect } from 'react';
 
-export default function TodoList() {
-  const [todos, setTodos] = useState([
-    { id: 1, text: "Learn React", completed: false },
-    { id: 2, text: "Build Todo App", completed: false },
-  ]);
+const TodoList = ({ tasks, toggleTasks, deleteTasks }) => {
+  const [totalTasks, setTotalTasks] = useState(tasks.length);
 
-  const addTodo = (text) => {
-    const newTodo = {
-      id: Date.now(),
-      text,
-      completed: false,
-    };
-    setTodos([...todos, newTodo]);
-  };
-
-  const toggleTodo = (id) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
-    );
-  };
-
-  const deleteTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
+  useEffect(() => {
+    setTotalTasks(tasks.length);
+  }, [tasks]);
 
   return (
     <div>
-      <h1>Todo List</h1>
-      <AddTodoForm addTodo={addTodo} />
+      <h2>Total Tasks: {totalTasks}</h2> {/* Display total number of tasks */}
       <ul>
-        {todos.map((todo) => (
-          <li
-            key={todo.id}
-            onClick={() => toggleTodo(todo.id)}
-            style={{
-              textDecoration: todo.completed ? "line-through" : "none",
-              cursor: "pointer",
-            }}
-          >
-            {todo.text}{" "}
-            <button onClick={(e) => { e.stopPropagation(); deleteTodo(todo.id); }}>
+        {tasks.map((task) => (
+          <li key={task.id} style={{ textDecoration: task.completed ? 'line-through' : 'none' }}>
+            <span 
+              onClick={() => toggleTasks(task.id)}
+              style={{ cursor: 'pointer' }}
+            >
+              {task.text}
+            </span>
+            <span style={{ marginLeft: '10px', color: task.completed ? 'green' : 'red' }}>
+              {task.completed ? 'Closed' : 'Open'}
+            </span>
+            <button 
+              onClick={() => deleteTasks(task.id)} 
+              style={{ marginLeft: '10px' }}
+            >
               Delete
             </button>
           </li>
@@ -51,4 +33,6 @@ export default function TodoList() {
       </ul>
     </div>
   );
-}
+};
+
+export default TodoList;
