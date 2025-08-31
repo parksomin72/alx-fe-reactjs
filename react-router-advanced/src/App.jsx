@@ -5,6 +5,7 @@ import Post from "./pages/Post";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Profile from "./components/Profile";
+import BlogPost from "./components/BlogPost";
 
 export default function App() {
   return (
