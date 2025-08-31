@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
-import Post from "./pages/Post";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Profile from "./components/Profile";
@@ -16,8 +15,8 @@ export default function App() {
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
 
-        {/* Dynamic route */}
-        <Route path="/posts/:id" element={<Post />} />
+        {/* Dynamic route for blog posts */}
+        <Route path="/blog/:id" element={<BlogPost />} />
 
         {/* Protected + Nested routes */}
         <Route
@@ -28,8 +27,8 @@ export default function App() {
             </ProtectedRoute>
           }
         />
-        
-        {/* Redirect all unknown paths */}
+
+        {/* Redirect unknown paths */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
